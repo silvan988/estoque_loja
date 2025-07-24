@@ -1,0 +1,202 @@
+/* produtos/static/produtos/css/custom.css */
+
+/* Regras CSS existentes para campos de formulário e outras customizações */
+.container form p {
+    margin-bottom: 0.5rem;
+}
+
+.container {
+    margin-bottom: 3%;
+}
+
+.form-control {
+    padding: 0.25rem 0.5rem;
+    font-size: 0.875rem;
+    height: auto;
+}
+
+.form-select {
+    padding: 0.25rem 0.5rem;
+    font-size: 0.875rem;
+    height: auto;
+}
+
+textarea.form-control {
+    min-height: 50px;
+}
+
+/* --- Novas regras para tabelas --- */
+
+/* Aplica layout de tabela fixa para que as larguras de coluna funcionem */
+.table-responsive .table {
+    table-layout: fixed !important; /* Isso é CRUCIAL para que as larguras de coluna funcionem! */
+    width: 100%; /* Garante que a tabela ocupe 100% da largura disponível */
+}
+
+/* Definindo larguras para as colunas da tabela de Produtos */
+/* Use as mesmas larguras para <th> (cabeçalho) e <td> (células de dados) */
+.table-responsive .table th:nth-child(1), /* Imagem */
+.table-responsive .table td:nth-child(1) {
+    width: 45px !important; /* Largura fixa para a imagem */
+}
+
+.table-responsive .table th:nth-child(2), /* Nome */
+.table-responsive .table td:nth-child(2) {
+    width: 16% !important; /* Porcentagem para o nome */
+}
+
+.table-responsive .table th:nth-child(3), /* SKU */
+.table-responsive .table td:nth-child(3) {
+    width: 13% !important;
+}
+
+.table-responsive .table th:nth-child(4), /* Categoria */
+.table-responsive .table td:nth-child(4) {
+    width: 18% !important;
+}
+
+.table-responsive .table th:nth-child(5), /* Preço Venda */
+.table-responsive .table td:nth-child(5) {
+    width: 15% !important; 
+}
+
+.table-responsive .table th:nth-child(6), /* Estoque */
+.table-responsive .table td:nth-child(6) {
+    width: 12%!important;
+}
+
+.table-responsive .table th:nth-child(7), /* Status */
+.table-responsive .table td:nth-child(7) {
+    width: 10% !important;
+}
+
+.table-responsive .table th:nth-child(8), /* Cadastrado por */
+.table-responsive .table td:nth-child(8) {
+    width: 10% !important;
+}
+
+.table-responsive .table th:nth-child(9), /* Ações */
+.table-responsive .table td:nth-child(9) {
+    width: 10% !important; /* Deixa um pouco mais de espaço para os botões */
+    white-space: nowrap; /* Impede que os botões quebrem linha */
+}
+
+/* Opcional: Se as células tiverem muito texto, force a quebra de linha ou o overflow */
+.table-responsive .table td {
+    word-wrap: break-word !important; /* Quebra palavras longas */
+    /* overflow: hidden; */ /* Esconde conteúdo que exceda a largura */
+    /* text-overflow: ellipsis; */ /* Adiciona "..." para conteúdo escondido */
+}
+
+/* Fixando larguras para a lista de Categorias */
+/* A lista de categorias é uma <ul>, não uma <table>, então o problema do cabeçalho não se aplica diretamente */
+/* Mas podemos ajustar o espaçamento dos itens da lista, se necessário */
+.list-group-item {
+    padding: 0.5rem 1rem; /* Reduz o padding vertical dos itens da lista de categorias */
+}
+
+.list-group-item small.text-muted {
+    font-size: 0.75rem; /* Reduz a fonte do "Cadastrado por" na categoria */
+}
+
+/* Adicione regras para controlar o conteúdo que excede a largura da célula */
+.table-responsive .table td,
+.table-responsive .table th {
+    /* Garante que o conteúdo não force a célula a ser maior que o necessário */
+    overflow: hidden;
+    text-overflow: ellipsis; /* Adiciona "..." se o texto for cortado */
+    white-space: nowrap; /* Impede que o texto quebre linha automaticamente */
+    padding-right: 5px; /* Adiciona um pequeno padding para não cortar o "..." */
+    padding-left: 5px;
+}
+
+/* Exceção para a descrição, se ela pode quebrar linha */
+.table-responsive .table td:nth-child(2) { /* Ajuste o nth-child para a coluna da descrição, se for diferente de nome */
+    white-space: normal; /* Permite quebrar linha para campos de descrição */
+    word-wrap: break-word; /* Quebra palavras longas */
+}
+
+/* Para a coluna de ações, podemos permitir mais espaço ou reduzir botões */
+.table-responsive .table th:last-child,
+.table-responsive .table td:last-child {
+    white-space: nowrap; /* Mantém os botões na mesma linha */
+    min-width: 150px; /* Garante uma largura mínima para os botões */
+    /* text-align: center; */ /* Opcional: centraliza botões */
+}
+
+/* Estilo para os botões de ação serem menores */
+.table-responsive .table td .btn {
+    padding: 0.2rem 0.4rem; /* Reduz o padding dos botões */
+    font-size: 0.75rem; /* Reduz a fonte dos botões */
+    margin: 0 2px; /* Espaçamento entre os botões */
+}
+
+.product-detail-image-large {
+    max-width: 100%; /* Garante que a imagem não transborde a coluna */
+    height: auto; /* Mantém a proporção da imagem */
+    width: 250px; /* Largura preferencial da imagem no detalhe */
+    /* Você pode ajustar essa largura para se adequar ao design */
+    display: block; /* Garante que ela se comporte como um bloco para margin auto funcionar */
+    margin: 0 auto 15px auto; /* Centraliza a imagem e adiciona margem inferior */
+    border-radius: 8px; /* Mantém o border-radius */
+    object-fit: contain; /* Ajusta a imagem dentro do seu container sem cortá-la */
+}
+
+/* Opcional: Se a imagem estiver muito pequena em telas grandes, ou muito grande em telas pequenas */
+/* Exemplo de media query para telas maiores, se precisar de uma imagem ainda maior */
+@media (min-width: 992px) { /* Para telas de desktop */
+    .product-detail-image-large {
+        width: 300px; /* Exemplo: um pouco maior em telas grandes */
+    }
+}
+
+/* Ajuste para telas menores: em colunas, imagens podem ficar pequenas demais.
+   Se a imagem deve ser maior em telas pequenas, você pode ajustar a coluna para 12 no mobile,
+   mas o img-fluid já ajuda a ela ocupar 100% da coluna. */
+
+   .product-image-thumb {
+    width: 50px;
+    height: 50px;
+    object-fit: cover; /* Garante que a imagem preencha o espaço sem distorcer */
+    border-radius: 5px;
+}
+
+.table-responsive .table2 th:nth-child(1), /* Imagem */
+.table-responsive .table2 td:nth-child(1) {
+    width: 10% !important; /* Largura fixa para a imagem */
+}
+
+.table-responsive .table2 th:nth-child(2), /* Nome */
+.table-responsive .table2 td:nth-child(2) {
+    width: 10% !important; /* Porcentagem para o nome */
+}
+
+.table-responsive .table2 th:nth-child(3), /* SKU */
+.table-responsive .table2 td:nth-child(3) {
+    width: 10% !important;
+}
+
+.table-responsive .table2 th:nth-child(4), /* Categoria */
+.table-responsive .table2 td:nth-child(4) {
+    width: 10% !important;
+}
+
+.table-responsive .table2 th:nth-child(5), /* Preço Venda */
+.table-responsive .table2 td:nth-child(5) {
+    width: 25% !important; 
+}
+
+
+
+.table-responsive .table2 th,
+.table-responsive .table2 td {
+    padding-left: 5%; /* <--- ADICIONE OU AJUSTE ESTA LINHA (ex: 15px) */
+    /*padding-right: 5px; /* Mantenha o padding-right para não colar no lado direito */
+    /*padding-top: 8px;   /* Padrão do Bootstrap, mas pode ajustar se quiser */
+    /*padding-bottom: 8px; /* Padrão do Bootstrap, mas pode ajustar se quiser */
+
+    /*overflow: hidden;
+    /*text-overflow: ellipsis;
+    /*white-space: nowrap; /* Impede que o texto quebre linha automaticamente */
+    /*vertical-align: middle; /* Centraliza verticalmente o conteúdo da célula */
+}

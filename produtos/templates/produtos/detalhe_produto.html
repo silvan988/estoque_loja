@@ -1,0 +1,77 @@
+{% extends 'base.html' %}
+
+{% block title %}Detalhes do Produto: {{ produto.nome }}{% endblock %}
+
+{% block content %}
+    <div class="container mt-4">
+        <h2>Detalhes do Produto: {{ produto.nome }}</h2>
+        <hr>
+        <div class="card mb-4">
+            <div class="card-body">
+                <div class="row"> {# Inicia a linha do grid #}
+                    <div class="col-md-4 text-center"> {# Coluna para a imagem (ocupará 4 de 12 colunas em telas médias/grandes) #}
+                        {% if produto.imagem %}
+                            {# Ajuste o tamanho da imagem para ser maior no detalhe #}
+                            <img src="{{ produto.imagem.url }}" alt="{{ produto.nome }}" class="img-fluid rounded product-detail-image-large">
+                        {% else %}
+                            <img src="https://via.placeholder.com/250x250?text=Sem+Imagem" alt="Sem Imagem" class="img-fluid rounded product-detail-image-large">
+                        {% endif %}
+                    </div>
+                    <div class="col-md-8"> {# Coluna para os detalhes (ocupará 8 de 12 colunas) #}
+                        <h5 class="card-title">{{ produto.nome }}</h5>
+                        <p class="card-text"><strong>SKU:</strong> {{ produto.codigo_sku }}</p>
+                        <p class="card-text"><strong>Descrição:</strong> {{ produto.descricao|default:"N/A" }}</p>
+                        <p class="card-text"><strong>Categoria:</strong> {{ produto.categoria.nome|default:"N/A" }}</p>
+                        <p class="card-text"><strong>Preço de Custo:</strong> R$ {{ produto.preco_custo|stringformat:".2f" }}</p>
+                        <p class="card-text"><strong>Preço de Venda:</strong> R$ {{ produto.preco_venda|stringformat:".2f" }}</p>
+                        <p class="card-text"><strong>Quantidade em Estoque:</strong> {{ produto.quantidade_estoque }} {{ produto.unidade_medida }}</p>
+                        <p class="card-text"><strong>Localização:</strong> {{ produto.localizacao_estoque|default:"N/A" }}</p>
+                        <p class="card-text"><strong>Fornecedor:</strong> {{ produto.fornecedor|default:"N/A" }}</p>
+                        <p class="card-text"><strong>Estoque Mínimo:</strong> {{ produto.limite_estoque_minimo }}</p>
+                        <p class="card-text"><strong>Estoque Máximo:</strong> {{ produto.limite_estoque_maximo }}</p>
+                        <p class="card-text"><strong>Data de Entrada:</strong> {{ produto.data_entrada|date:"d/m/Y H:i" }}</p>
+                        <p class="card-text"><strong>Última Atualização:</strong> {{ produto.data_ultima_atualizacao|date:"d/m/Y H:i" }}</p>
+                        <p class="card-text"><strong>Ativo:</strong> {{ produto.ativo|yesno:"Sim,Não" }}</p>
+                        <p class="card-text"><strong>Cadastrado por:</strong> {{ produto.cadastrado_por.username|default:"N/A" }}</p>
+                    </div>
+                </div> {# Fecha a linha do grid #}
+                <hr>
+                <a href="{% url 'editar_produto' produto.pk %}" class="btn btn-warning">Editar Produto</a>
+                <a href="{% url 'movimentar_estoque' produto.pk %}" class="btn btn-primary">Movimentar Estoque</a>
+                <a href="{% url 'lista_produtos' %}" class="btn btn-secondary">Voltar para Lista</a>
+            </div>
+        </div>
+
+        <h3 class="mt-4">Histórico de Movimentações</h3>
+        <hr>
+        {# ... (Histórico de Movimentações) ... #}
+        {% if movimentacoes %}
+            <div class="table-responsive">
+                <table class="table2 table-striped table-sm">
+                    <thead>
+                        <tr>
+                            <th>Tipo</th>
+                            <th>Quantidade</th>
+                            <th>Data</th>
+                            <th>Responsável</th>
+                            <th>Observação</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for mov in movimentacoes %}
+                            <tr>
+                                <td>{{ mov.get_tipo_movimentacao_display }}</td>
+                                <td>{{ mov.quantidade }}</td>
+                                <td>{{ mov.data_movimentacao|date:"d/m/Y H:i" }}</td>
+                                <td>{{ mov.responsavel.username|default:"N/A" }}</td>
+                                <td>{{ mov.observacao|default:"-" }}</td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        {% else %}
+            <p>Nenhuma movimentação de estoque registrada para este produto.</p>
+        {% endif %}
+    </div>
+{% endblock %}

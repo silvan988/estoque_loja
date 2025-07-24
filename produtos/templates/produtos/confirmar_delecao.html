@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+
+{% block title %}Confirmar Deleção{% endblock %}
+
+{% block content %}
+    <div class="container mt-4">
+        <h2>Confirmar Deleção</h2>
+        <hr>
+        <div class="alert alert-danger" role="alert">
+            Você tem certeza que deseja deletar o produto <strong>"{{ produto.nome }}"</strong>?
+            Esta ação é irreversível.
+        </div>
+        <form method="post">
+            {% csrf_token %}
+            <button type="submit" class="btn btn-danger">Sim, Deletar</button>
+            <a href="{% url 'detalhe_produto' produto.pk %}" class="btn btn-secondary">Não, Voltar</a>
+        </form>
+    </div>
+{% endblock %}
