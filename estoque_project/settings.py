@@ -40,6 +40,8 @@ INSTALLED_APPS = [
     'produtos',
     'rest_framework', # Para o item 9 (APIs)
     'storages',       # Para AWS S3 (Mídia)
+    'django_extensions',
+    'widget_tweaks',
 ]
 
 MIDDLEWARE = [
@@ -61,6 +63,7 @@ TEMPLATES = [
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
+                'django.template.context_processors.debug',
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
@@ -132,3 +135,15 @@ else:
     # Configurações locais de mídia (para desenvolvimento)
     MEDIA_URL = '/media/'
     MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+
+
+# --- Configurações de URL para Autenticação ---
+# URL para a página de login. O Django vai redirecionar pra cá se o usuário não estiver logado.
+LOGIN_URL = '/accounts/login/'
+
+# URL pra onde o usuário é redirecionado depois de um login bem-sucedido.
+LOGIN_REDIRECT_URL = '/estoque/' # Exemplo: Redireciona pra lista de produtos
+
+# URL pra onde o usuário é redirecionado depois de fazer logout.
+LOGOUT_REDIRECT_URL = '/accounts/login/' # Exemplo: Volta pra página de login
+

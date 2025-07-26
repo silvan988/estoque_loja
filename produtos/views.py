@@ -81,7 +81,7 @@ def criar_produto(request):
         form = ProdutoForm()
     return render(request, 'produtos/criar_editar_produto.html', {'form': form, 'titulo': 'Adicionar Novo Produto'})
 
-
+@login_required
 def editar_produto(request, pk):
     produto = get_object_or_404(Produto, pk=pk)
     if request.method == 'POST':
@@ -98,6 +98,7 @@ def editar_produto(request, pk):
         form = ProdutoForm(instance=produto) # Ao carregar o formulário, preenche com dados existentes
     return render(request, 'produtos/criar_editar_produto.html', {'form': form, 'titulo': f'Editar Produto: {produto.nome}'})
 
+@login_required
 def deletar_produto(request, pk):
     produto = get_object_or_404(Produto, pk=pk)
     if request.method == 'POST':
@@ -107,6 +108,7 @@ def deletar_produto(request, pk):
     return render(request, 'produtos/confirmar_delecao.html', {'produto': produto})
 
 # Views para Categoria (opcional, mas recomendado)
+@login_required
 def criar_categoria(request):
     if request.method == 'POST':
         form = CategoriaForm(request.POST)

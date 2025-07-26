@@ -7,10 +7,11 @@ from django.conf.urls.static import static # Importar static
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('', include('produtos.urls')),
     path('estoque/', include('produtos.urls')),
     path('accounts/', include('django.contrib.auth.urls')),
     #path('api/', include('produtos.api_urls')),
-    path('', include('produtos.urls')),
+    
 ]
 
 # --- ADICIONE ESTE BLOCO ---
